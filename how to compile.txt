@@ -1,0 +1,45 @@
+===============
+how to compile:
+===============
+
+install visual studio 2017 community edition
+use c++ option/pack during install (desktop development with c++)
+the required xinput library and h file from DXSDK_Jun10.exe is already present in lib folder of the project so you don't need to search for them
+make sure to set the "platform" in visual studio to "x86" before you compile
+
+
+======================================
+In case you're recreating the project:
+======================================
+
+libraries are linked by placing something like this into the source:
+
+#include <vjoyinterface.h>
+#pragma comment(lib, "lib\\vJoyInterface.lib") 
+
+#include <Xinput.h>
+#pragma comment(lib, "lib\\XInput.lib")
+
+also, the "inc" path should be added to "include directories", this is done like this:
+click on project in solution explorer (the tree-like window on the left)
+open project properties by pressing the wrench icon
+then select the configuration you're using and add inc at the end of the entry here:
+configuration properties - vc++ directories - Include directories
+vjoy header files are in the inc directory
+
+
+==========================================
+other useful things in project properties:
+==========================================
+
+setting:
+configuration properties - C/C++ - code generation - runtime library
+to:
+"/MT" means that a visual C/C++ runtime code will be added to the created executable - bigger exe file
+"/MD" means that runtime code will not be added to the executable and that the Visual Visual C++ Redistributable for Visual Studio 2015 has to be installed on the system that runs this - smaller exe file
+
+linking libraries to the project can also be achieved by adding them to this setting:
+configuration properties - linker - input - additional dependencies
+
+switching from console app to nonconsole app:
+configuration properties - linker - system - subsystem

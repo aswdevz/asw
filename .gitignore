@@ -1,0 +1,12 @@
+# Visual Studio files
+
+/.vs
+/asw/Release
+
+*.iobj
+*.ipdb
+*.pdb
+
+# *.ilk
+# /asw/Debug
+# /Debug

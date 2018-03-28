@@ -1,0 +1,33 @@
+what I used to write asw:
+
+1.
+How to write a vJoy Feeder (C/C++) reference document
+this document can be found on this page:
+http://vjoystick.sourceforge.net/site/index.php/dev/87-writing-a-feeder-application2
+direct link to document:
+http://vjoystick.sourceforge.net/site/includes/SDK_ReadMe.pdf
+
+2.
+I also used the xinput referece from here:
+https://msdn.microsoft.com/en-us/library/windows/desktop/hh405053(v=vs.85).aspx
+
+
+where I got header, lib and dll files that I used in this project:
+public.h - from vjoy sdk (vJoy218SDK-291116.zip)
+vjoyinterface.h - from vjoy sdk (vJoy218SDK-291116.zip)
+vJoyInterface.lib -  from vjoy sdk (vJoy218SDK-291116.zip)
+vJoyInterface.dll -  from vjoy sdk (vJoy218SDK-291116.zip)
+vJoy218SDK-291116.zip is available here: http://vjoystick.sourceforge.net/site/index.php/81-news/104-vjoy-2-1-5-sdk-released
+
+XInput.h -  Microsoft Direct X SDK (June 2010) (DXSDK_Jun10.exe)
+XInput.lib - Microsoft Direct X SDK (June 2010) DXSDK_Jun10.exe)
+Microsoft Direct X SDK (June 2010) is available here: https://www.microsoft.com/en-us/download/details.aspx?id=6812
+
+(the above 6 files are already present so you don't have to search for them)
+
+
+IDE and complier used:
+Visual Studio 2017 community edition
+
+Language used:
+c++
