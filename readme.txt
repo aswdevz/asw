@@ -1,6 +1,7 @@
 ASW (Analog Stick Wheel)
 version 1.0.0
 https://github.com/aswdevz/asw
+contact: aswdevz@gmail.com
 
 =========
 Overview:
