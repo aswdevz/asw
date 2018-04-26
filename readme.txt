@@ -1,5 +1,5 @@
 ASW (Analog Stick Wheel)
-version 1.0.0
+version 1.0.1
 https://github.com/aswdevz/asw
 contact: aswdevz@gmail.com
 
@@ -11,15 +11,14 @@ Asw does 2 things.
 
 1. Asw reads the rotational movement of a thumbstick on the xbox controller (or any other xinput compatible controller) and converts it to a linear value that it sends (feeds) to a vjoy axis. Or you can say that it creates an axis (on the vjoy device) that responds to the rotation of the controller analog stick.
 Basically it turns the thumbstick into a wheel-like control.
-This function is useful because the controller input in racing games has little precision most of the time since it only responds to the left to right movement of the analog stick. Using asw, more precise control is possible.
 
 2. Asw also reads the left and right triggers and feeds the values to vjoy.
-This is useful because when the xbox controller is used in DirectInput mode, the left and right triggers share an axis and are not independent. This function allows you to have independent inputs from the triggers present on the vjoy device.
+This is useful because when the xbox controller is used in DirectInput mode, the left and right triggers share an axis. This function allows you to have independent inputs from the triggers present on the vjoy device (each trigger will have it's own axis).
 
-Feel free to try asw when you're dissatisfied with the level of precision offered by the xbox controller in racing games.
+Asw was made to improve the level of precision offered by the xbox controller in racing games.
 
 ====================
-system requirements:
+System requirements:
 ====================
 Windows 7 or later (only tested in Win 7 and 10)
 xbox controller or any other xinput controller
@@ -30,18 +29,19 @@ How to install and use:
 =======================
 First, download asw from asw's github page. There are two ways you can go achieve this.
 Method 1) Download the entire source code package using the green download button on project’s main page (https://github.com/aswdevz/asw), all that you need to run asw will be inside the "Release" directory. 
-Method 2) Download the package from the releases section (https://github.com/aswdevz/asw/releases), this will contain just the program and documentation. 
+Method 2) Download the package from the releases section (https://github.com/aswdevz/asw/releases), this will contain just the program and documentation.
 
 Then install vjoy (vjoy is required to run asw), you can get it from here:
 http://vjoystick.sourceforge.net/site/index.php/download-a-install/download
-Check that vjoy has at least one virtual device using the "configure vjoy" or "monitor vjoy" tools (these are included with vjoy). This device should have at least these 3 controls: x axis, slider 0, slider 1. It can have more, but if one of the previously mentioned controls is missing, this feeder will lose the corresponding functionality. The device should be created automatically when you install vjoy. But if it's not present for some reason, create it. 
+Check that vjoy has at least one virtual device using the "configure vjoy" or "monitor vjoy" tools (these are included with vjoy). This device should have at least these 3 controls: x axis, slider 0, slider 1. It can have more, but if one of the previously mentioned controls is missing, asw will lose the corresponding functionality. The device should be created automatically when you install vjoy. But if it's not present for some reason, create it. 
 Vjoy devices have numbers from 1-16. asw will try to use the device numbered 1. You can change this behavior using the -interface command line argument.
 Note: the 3 controls this feeder uses can be changed with command line arguments that are explained later in this file.
 
 Next, run asw (asw.exe).
 Asw should start to function (feed inputs to vjoy) right after it's launched.
-You should now be able to bind the controls in your racing game and use them.
+You should now be able to bind asw's controls in your racing game and use them.
 Sample control setup for Assetto Corsa and Project Cars is available in the doc directory.
+The recommended way to use the controller with asw is: push the thumbstick to the edge with your thumb, then move it along the edge.
 Pressing ESC quits asw.
 In case something goes wrong and the window closes, try launching from the command line so you can see the program output. The output may explain what the problem is.
 You can adjust how asw works using command line arguments, explained below.
@@ -162,7 +162,7 @@ display help text
 display program version
 
 ========================================
-The vjoy axis identifiers presently are:
+The axis identifiers in vjoy v2.1.8 are:
 ========================================
 Axis     Value
 X        0x30

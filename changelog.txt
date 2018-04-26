@@ -1,0 +1,6 @@
+V1.0.1
+- improved readme
+- started changelog
+
+v1.0.0
+- initial release
