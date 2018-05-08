@@ -1,4 +1,4 @@
-// xy_to_rot.cpp : This file contains functions that take the X and Y values representing
+// xy_to_angle.cpp : This file contains functions that take the X and Y values representing
 // the position of the controller thumbstick and convertes them to an angle and then to
 // an integer that can be sent to vjoy. Functions that help this process are also present.
 //
