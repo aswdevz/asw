@@ -1,7 +1,6 @@
-ASW (Analog Stick Wheel)
-version 1.0.1
-https://github.com/aswdevz/asw
-contact: aswdevz@gmail.com
+asw (Analog Stick Wheel)
+
+Asw turns the thumbstick of an xbox controller (or any other xinput compatible controller) into a wheel-like control. This can allow for more precise control in racing games.
 
 =========
 Overview:
@@ -10,7 +9,7 @@ Asw is a vjoy feeder and needs vjoy to work.
 Asw does 2 things.
 
 1. Asw reads the rotational movement of a thumbstick on the xbox controller (or any other xinput compatible controller) and converts it to a linear value that it sends (feeds) to a vjoy axis. Or you can say that it creates an axis (on the vjoy device) that responds to the rotation of the controller analog stick.
-Basically it turns the thumbstick into a wheel-like control.
+Basically, it makes the thumbstick work kind of like a wheel.
 
 2. Asw also reads the left and right triggers and feeds the values to vjoy.
 This is useful because when the xbox controller is used in DirectInput mode, the left and right triggers share an axis. This function allows you to have independent inputs from the triggers present on the vjoy device (each trigger will have it's own axis).
@@ -175,3 +174,9 @@ Slider0  0x36
 Slider1  0x37
 Wheel    0x38
 POV      0x39
+
+=========================
+Repository url + contact:
+=========================
+https://github.com/aswdevz/asw
+aswdevz@gmail.com
