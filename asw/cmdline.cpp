@@ -122,13 +122,6 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-anykey") == 0) || (strcmp(argv[i], "-a") == 0))
-		{
-			//printf("-anykey detected\n");
-			*(aliaslist.any_key_to_quit) = 1;
-			continue;
-		}
-
 		if ((strcmp(argv[i], "-bindmode") == 0) || (strcmp(argv[i], "-b") == 0))
 		{
 			//printf("-bindmode detected\n");
@@ -184,6 +177,49 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			{
 				printf("-bindmodeincrement value not present\n");
 			}
+			continue;
+		}
+
+		if ((strcmp(argv[i], "-bindmodemovementdirection") == 0) || (strcmp(argv[i], "-bmmd") == 0))
+		{
+			//printf("-bindmodemovementdirection detected\n");
+			if ((i + 1) < argc)
+			{
+				if (sscanf_s(argv[i + 1], "%d", &int_scan_val) == 1)
+				{
+					// bind mode should be 1-8192
+					if ((int_scan_val == 1) || (int_scan_val == -1))
+					{
+						*(aliaslist.bind_mode_movement_direction) = int_scan_val;
+					}
+					else
+					{
+						printf("-bindmodemovementdirection value out of range, allowed values: 1 and -1\n");
+					}
+				}
+				else
+				{
+					printf("-bindmodemovementdirection value not present or in incorrect format\n");
+				}
+			}
+			else
+			{
+				printf("-bindmodemovementdirection value not present\n");
+			}
+			continue;
+		}
+		
+		if ((strcmp(argv[i], "-bindmodenonreversible") == 0) || (strcmp(argv[i], "-bmnr") == 0))
+		{
+			//printf("-bindmodenonreversible detected\n");
+			*(aliaslist.bind_mode_non_reversible) = 1;
+			continue;
+		}
+
+		if ((strcmp(argv[i], "-anykey") == 0) || (strcmp(argv[i], "-a") == 0))
+		{
+			//printf("-anykey detected\n");
+			*(aliaslist.any_key_to_quit) = 1;
 			continue;
 		}
 
@@ -320,9 +356,9 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			printf("  -c controller   controller to use [1-4]\n");
 			printf("  -d size         deadzone for the thumbstick input in percent\n");
 			printf("  -r range        number of degrees the virtual wheel can be rotated to\n");
-			printf("  -a              make any key press quit the program\n");
 			printf("  -b              run program in bind mode\n");
 			printf("  -bmi increment  adjust the speed of bind mode\n");
+			printf("  -a              make any key press quit the program\n");
 			printf("  -t delay        delay between consecutive vJoy device updates\n");
 			printf("  -rs             use right thumbstick as input for the virtual wheel\n");
 			printf("  -wa axis        vJoy device axis used as output for the virtual wheel\n");

@@ -40,16 +40,18 @@ int main(int argc, char* argv[])
 	int virtual_wheel_max_angle = 900; // sets a limit on how much can the virtual wheel be rotated to
 
 	// variables needed for bind mode functionality
-	int generated_movement = 1; // this stores the generated control position for the bind functionality
-	int generated_movement_direction = 1; // this determines if the generated control position is increasing (1) or decreasing (-1) each tick
-		
-	// other variables needed for my code
-	bool any_key_to_quit = false; // if this is set to true, pressing any key will quit the app, else only esc will quit the app
 	int bind_mode = 0; // if bind_mode is set to 1, this program will generate and send positional changes to the vjoy virtual wheel axis
 	                   // 2 is the same but for left trigger
 					   // 3 is the same but for right right trigger
 	                   // this is useful for binding the virtual controller in games
 	int bind_mode_increment = 128; // this defines how much will the generated position change between every tick
+	int bind_mode_position = 0; // this stores the generated control position for the bind functionality
+	int bind_mode_movement_direction = 1; // this determines if the generated control position is increasing (1) or decreasing (-1) each tick
+	bool bind_mode_non_reversible = false; // if this is true bind mode will move the control in on direction only
+												  // if false, bind mode will reverse the direction when the end of travel is reached
+	
+	// other variables needed for my code
+	bool any_key_to_quit = false; // if this is set to true, pressing any key will quit the app, else only esc will quit the app
 	int tick_delay = 8; // sets the delay in miliseconds between each tick (main loop)
 	bool use_right_stick = false; // if this is true, the right thumbstick will be used (if false, the left stick will be used)
 	bool help_detected = false; // if this is true, the program will print the supported command line argument list and then quit
@@ -68,9 +70,11 @@ int main(int argc, char* argv[])
 		&controller_number,
 		&thumbstick_deadzone,
 		&virtual_wheel_max_angle,
-		&any_key_to_quit,
 		&bind_mode,
 		&bind_mode_increment,
+		&bind_mode_movement_direction,
+		&bind_mode_non_reversible,
+		&any_key_to_quit,
 		&tick_delay,
 		&use_right_stick,
 		&help_detected,
@@ -107,7 +111,12 @@ int main(int argc, char* argv[])
 	printf("   left trigger: %s", invert_left_trigger ? "yes" : "no");
 	printf("   right trigger: %s\n", invert_right_trigger ? "yes" : "no");
 
+	printf("-bmmd: %d ", bind_mode_movement_direction);
+	printf("-bmnr: %s", bind_mode_non_reversible ? "true" : "false");
+	printf("\n");
+
 	printf("=== starting asw ===\n");
+
 
 	/******************************************************************************/
 	/* Start of vjoy setup code                                                   */
@@ -207,7 +216,7 @@ int main(int argc, char* argv[])
 	// set the start position of movement generation for bind mode to the center of the axis in case 
 	// bind_mode is 1 (bind_mode 1 means virtial wheel, 2 and 3 means triggers)
 	if (bind_mode == 1)
-		generated_movement = 16384;
+		bind_mode_position = 16384;
 
 	/******************************************************************************/
 	/* Start of main loop                                                         */
@@ -305,26 +314,40 @@ int main(int argc, char* argv[])
 			switch (bind_mode)
 			{
 			case 1:
-				SetAxis(generated_movement, iInterface, wheel_axis); // virtual wheel
+				SetAxis(bind_mode_position, iInterface, wheel_axis); // virtual wheel
 				break;
 			case 2:
-				SetAxis(generated_movement, iInterface, left_trigger_axis); // left trigger
+				SetAxis(bind_mode_position, iInterface, left_trigger_axis); // left trigger
 				break;
 			case 3:
-				SetAxis(generated_movement, iInterface, right_trigger_axis); // right trigger
+				SetAxis(bind_mode_position, iInterface, right_trigger_axis); // right trigger
 				break;
 			}
 
-			generated_movement = generated_movement + (bind_mode_increment*generated_movement_direction);
-			if (generated_movement > 32768)
+			bind_mode_position = bind_mode_position + (bind_mode_increment*bind_mode_movement_direction);
+			if (bind_mode_position > 32768)
 			{
-				generated_movement = 32768;
-				generated_movement_direction = -1;
+				if (bind_mode_non_reversible)
+				{
+					bind_mode_position = 0;
+				}
+				else
+				{
+					bind_mode_position = 32768;
+					bind_mode_movement_direction = -1;
+				}
 			}
-			else if (generated_movement < 0)
+			else if (bind_mode_position < 0)
 			{
-				generated_movement = 1;
-				generated_movement_direction = 1;
+				if (bind_mode_non_reversible)
+				{
+					bind_mode_position = 32768;
+				}
+				else
+				{
+					bind_mode_position = 1;
+					bind_mode_movement_direction = 1;
+				}
 			}
 		}
 
