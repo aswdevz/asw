@@ -5,7 +5,7 @@
 
 #pragma once
 
-#define VERSION_STRING "1.0.3rc"
+#define VERSION_STRING "1.0.3rc2"
 //#define EXTRA_LINES
 
 #include <stdlib.h> // used for printf and maybe other things
@@ -17,7 +17,7 @@
 #include <math.h>
 
 // the following 3 files are taken from vJoy218SDK-291116.zip
-// this can be donwloaded here: http://vjoystick.sourceforge.net/site/index.php/81-news/104-vjoy-2-1-5-sdk-released
+// this can be downloaded here: http://vjoystick.sourceforge.net/site/index.php/81-news/104-vjoy-2-1-5-sdk-released
 #include <public.h> // needed for vjoy
 #include <vjoyinterface.h> // needed for vjoy
 #pragma comment(lib, "lib\\vJoyInterface.lib")
@@ -37,6 +37,7 @@ struct s_aliaslist
 	int* bind_mode_increment;
 	int* bind_mode_movement_direction;
 	bool* bind_mode_non_reversible;
+	int* bind_mode_reset_wait;
 	bool* any_key_to_quit;
 	int* tick_delay;
 	bool* use_right_stick;

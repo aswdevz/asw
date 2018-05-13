@@ -42,13 +42,17 @@ int main(int argc, char* argv[])
 	// variables needed for bind mode functionality
 	int bind_mode = 0; // if bind_mode is set to 1, this program will generate and send positional changes to the vjoy virtual wheel axis
 	                   // 2 is the same but for left trigger
-					   // 3 is the same but for right right trigger
+	                   // 3 is the same but for right right trigger
 	                   // this is useful for binding the virtual controller in games
 	int bind_mode_increment = 128; // this defines how much will the generated position change between every tick
 	int bind_mode_position = 0; // this stores the generated control position for the bind functionality
 	int bind_mode_movement_direction = 1; // this determines if the generated control position is increasing (1) or decreasing (-1) each tick
 	bool bind_mode_non_reversible = false; // if this is true bind mode will move the control in on direction only
-												  // if false, bind mode will reverse the direction when the end of travel is reached
+	                                       // if false, bind mode will reverse the direction when the end of travel is reached
+	int bind_mode_reset_wait = 125; // this sets how many ticks of the main loop should bindmode wait when the end of travel is reached
+	                                // after the wait, bindmode starts moving the control again
+	                                // actual delay in ms = bind_mode_reset_wait * tick_delay
+	int bind_mode_ticks_to_wait = 0;
 	
 	// other variables needed for my code
 	bool any_key_to_quit = false; // if this is set to true, pressing any key will quit the app, else only esc will quit the app
@@ -74,6 +78,7 @@ int main(int argc, char* argv[])
 		&bind_mode_increment,
 		&bind_mode_movement_direction,
 		&bind_mode_non_reversible,
+		&bind_mode_reset_wait,
 		&any_key_to_quit,
 		&tick_delay,
 		&use_right_stick,
@@ -112,7 +117,8 @@ int main(int argc, char* argv[])
 	printf("   right trigger: %s\n", invert_right_trigger ? "yes" : "no");
 
 	printf("-bmmd: %d ", bind_mode_movement_direction);
-	printf("-bmnr: %s", bind_mode_non_reversible ? "true" : "false");
+	printf("-bmnr: %s ", bind_mode_non_reversible ? "true" : "false");
+	printf("-bmrw: %d", bind_mode_reset_wait);
 	printf("\n");
 
 	printf("=== starting asw ===\n");
@@ -324,9 +330,18 @@ int main(int argc, char* argv[])
 				break;
 			}
 
-			bind_mode_position = bind_mode_position + (bind_mode_increment*bind_mode_movement_direction);
+			if (bind_mode_ticks_to_wait < 1)
+			{
+				bind_mode_position = bind_mode_position + (bind_mode_increment*bind_mode_movement_direction);
+			}
+			else
+			{
+				bind_mode_ticks_to_wait--;
+			}
+
 			if (bind_mode_position > 32768)
 			{
+				bind_mode_ticks_to_wait = bind_mode_reset_wait;
 				if (bind_mode_non_reversible)
 				{
 					bind_mode_position = 0;
@@ -339,6 +354,7 @@ int main(int argc, char* argv[])
 			}
 			else if (bind_mode_position < 0)
 			{
+				bind_mode_ticks_to_wait = bind_mode_reset_wait;
 				if (bind_mode_non_reversible)
 				{
 					bind_mode_position = 32768;

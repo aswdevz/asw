@@ -129,7 +129,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			{
 				if (sscanf_s(argv[i + 1], "%d", &int_scan_val) == 1)
 				{
-					// bind mode should be 0-3
+					// bindmode should be 0-3
 					if ((int_scan_val >= 0) && (int_scan_val <= 3))
 					{
 						*(aliaslist.bind_mode) = int_scan_val;
@@ -158,7 +158,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			{
 				if (sscanf_s(argv[i + 1], "%d", &int_scan_val) == 1)
 				{
-					// bind mode should be 1-8192
+					// bindmodeincrement should be 1-8192
 					if ((int_scan_val >= 1) && (int_scan_val <= 8192))
 					{
 						*(aliaslist.bind_mode_increment) = int_scan_val;
@@ -187,7 +187,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			{
 				if (sscanf_s(argv[i + 1], "%d", &int_scan_val) == 1)
 				{
-					// bind mode should be 1-8192
+					// bindmodemovementdirection should be 1 or -1
 					if ((int_scan_val == 1) || (int_scan_val == -1))
 					{
 						*(aliaslist.bind_mode_movement_direction) = int_scan_val;
@@ -216,6 +216,27 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
+		if ((strcmp(argv[i], "-bindmoderesetwait") == 0) || (strcmp(argv[i], "-bmrw") == 0))
+		{
+			//printf("-bindmoderesetwait detected\n");
+			if ((i + 1) < argc)
+			{
+				if (sscanf_s(argv[i + 1], "%d", &int_scan_val) == 1)
+				{
+					*(aliaslist.bind_mode_reset_wait) = int_scan_val;
+				}
+				else
+				{
+					printf("-bindmoderesetwait value not present or in incorrect format\n");
+				}
+			}
+			else
+			{
+				printf("-bindmoderesetwait value not present\n");
+			}
+			continue;
+		}
+
 		if ((strcmp(argv[i], "-anykey") == 0) || (strcmp(argv[i], "-a") == 0))
 		{
 			//printf("-anykey detected\n");
@@ -230,7 +251,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			{
 				if (sscanf_s(argv[i + 1], "%d", &int_scan_val) == 1)
 				{
-					// bind mode should be 1-1000
+					// tickdelay should be 1-1000
 					if ((int_scan_val >= 1) && (int_scan_val <= 1000))
 					{
 						*(aliaslist.tick_delay) = int_scan_val;
@@ -347,8 +368,8 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 		{
 			//printf("-help detected\n");
 			*(aliaslist.help_detected) = true;
-			printf("Usage: asw [-i vjoyid] [-c controller] [-d size] [-r range] [-a]\n");
-			printf("           [-b] [-bmi increment] [-t delay] [-rs] [-wa axis]\n");
+			printf("Usage: asw [-i vjoyid] [-c controller] [-d size] [-r range] [-b]\n");
+			printf("           [-bmi increment] [-a] [-t delay] [-rs] [-wa axis]\n");
 			printf("           [-lta axis] [-rta axis] [-iw] [-ilt] [-irt] [-h]\n");
 			printf("\n");
 			printf("Options:\n");
