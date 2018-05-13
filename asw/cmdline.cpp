@@ -237,6 +237,35 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
+		if ((strcmp(argv[i], "-wheelresetbuttonsflag") == 0) || (strcmp(argv[i], "-wrbf") == 0))
+		{
+			//printf("-wheelresetbuttonsflag detected\n");
+			if ((i + 1) < argc)
+			{
+				if (sscanf_s(argv[i + 1], "%x", &int_scan_val) == 1)
+				{
+					*(aliaslist.wheel_reset_buttons_flag) = int_scan_val;
+				}
+				else
+				{
+					printf("-wheelresetbuttonsflag value not present or in incorrect format\n");
+				}
+			}
+			else
+			{
+				printf("-wheelresetbuttonsflag value not present\n");
+			}
+			continue;
+		}
+
+		if ((strcmp(argv[i], "-disablewheelreset") == 0) || (strcmp(argv[i], "-dwr") == 0))
+		{
+			//printf("-disablewheelreset detected\n");
+			*(aliaslist.disable_wheel_reset) = 1;
+			continue;
+		}
+
+
 		if ((strcmp(argv[i], "-anykey") == 0) || (strcmp(argv[i], "-a") == 0))
 		{
 			//printf("-anykey detected\n");

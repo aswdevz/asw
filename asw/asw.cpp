@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 	DWORD controller_number = 0; // xinput controller number [0-3]
 	XINPUT_STATE controller_state; // this structure holds data indicating the state of all controls present on the controller
 	ZeroMemory(&controller_state, (sizeof(controller_state)));
-	int thumbstick_deadzone = 10;
+	int thumbstick_deadzone = 15; // note: I was using 10 here before
 
 	// variables needed for windows console input
 	HANDLE console_input = GetStdHandle(STD_INPUT_HANDLE); // get a handle for the console input buffer
@@ -55,6 +55,8 @@ int main(int argc, char* argv[])
 	int bind_mode_ticks_to_wait = 0;
 	
 	// other variables needed for my code
+	int wheel_reset_buttons_flag = 0x8020; // defines the buttons that have to be pressed for the wheel to be reset
+	bool disable_wheel_reset = false; // this disables wheel reset functionality
 	bool any_key_to_quit = false; // if this is set to true, pressing any key will quit the app, else only esc will quit the app
 	int tick_delay = 8; // sets the delay in miliseconds between each tick (main loop)
 	bool use_right_stick = false; // if this is true, the right thumbstick will be used (if false, the left stick will be used)
@@ -79,6 +81,8 @@ int main(int argc, char* argv[])
 		&bind_mode_movement_direction,
 		&bind_mode_non_reversible,
 		&bind_mode_reset_wait,
+		&wheel_reset_buttons_flag,
+		&disable_wheel_reset,
 		&any_key_to_quit,
 		&tick_delay,
 		&use_right_stick,
@@ -90,6 +94,7 @@ int main(int argc, char* argv[])
 		&invert_left_trigger,
 		&invert_right_trigger
 	};
+
 
 	/******************************************************************************/
 	/* Parse command line arguments                                               */
@@ -109,18 +114,20 @@ int main(int argc, char* argv[])
 	printf("bindmodeincrement: %d\n", bind_mode_increment);
 	printf("tick delay: %d\n", tick_delay);
 	printf("use right stick: %s\n", use_right_stick ? "true" : "false");
-	printf("wheel axis: 0x%x", wheel_axis);
-	printf("   left trigger axis: 0x%x", left_trigger_axis);
-	printf("   right trigger axis: 0x%x\n", right_trigger_axis);
+	printf("wheel axis: 0x%X", wheel_axis);
+	printf("   left trigger axis: 0x%X", left_trigger_axis);
+	printf("   right trigger axis: 0x%X\n", right_trigger_axis);
 	printf("axis inverted: wheel: %s", invert_wheel_axis ? "yes" : "no");
 	printf("   left trigger: %s", invert_left_trigger ? "yes" : "no");
 	printf("   right trigger: %s\n", invert_right_trigger ? "yes" : "no");
 
-	printf("-bmmd: %d ", bind_mode_movement_direction);
-	printf("-bmnr: %s ", bind_mode_non_reversible ? "true" : "false");
+	printf("-bmmd: %d   ", bind_mode_movement_direction);
+	printf("-bmnr: %s   ", bind_mode_non_reversible ? "true" : "false");
 	printf("-bmrw: %d", bind_mode_reset_wait);
 	printf("\n");
-
+	printf("-wheelresetbuttonsflag: 0x%X   ", wheel_reset_buttons_flag);
+	printf("-disablewheelreset: %s", disable_wheel_reset ? "true" : "false");
+	printf("\n");
 	printf("=== starting asw ===\n");
 
 
@@ -190,6 +197,7 @@ int main(int argc, char* argv[])
 	// Reset this device to default values
 	ResetVJD(iInterface);
 	
+
 	/******************************************************************************/
 	/* Start of xinput setup code                                                 */
 	/******************************************************************************/
@@ -223,6 +231,7 @@ int main(int argc, char* argv[])
 	// bind_mode is 1 (bind_mode 1 means virtial wheel, 2 and 3 means triggers)
 	if (bind_mode == 1)
 		bind_mode_position = 16384;
+
 
 	/******************************************************************************/
 	/* Start of main loop                                                         */
@@ -288,7 +297,23 @@ int main(int argc, char* argv[])
 		if (bind_mode == 0)
 		{
 			XInputGetState(controller_number, &controller_state);
-			
+
+			// reset the wheel to center if the preconfigured controller button (or their combination) is currently pressed down
+			//printf("0x%x   %d\n", controller_state.Gamepad.wButtons, controller_state.Gamepad.wButtons & wheel_reset_buttons_flag);
+			if (!disable_wheel_reset)
+			{
+				if ((controller_state.Gamepad.wButtons & wheel_reset_buttons_flag) == wheel_reset_buttons_flag)
+				{
+					raw_angle = 0.0; // angle calculated from thumbstick X and Y axis position, should be from -180.0 to 180.0
+					rotations = 0; // the number of times the stick rotated past the 180° position, positive = right, negative = left
+					steering_lock = 0; // 0 = no lock, -1 = locked at full left, 1 = locked at full right, this variable is not actually used in this version of the code
+					real_angle = 0.0; // virtual wheel angle caluclated by combining "raw_angle" and "rotations"
+					last_raw_angle = 0.0; // holds the angle from the previous tick
+					SetAxis(invert_vjoy_axis_value(angle_to_vjoy(real_angle, virtual_wheel_max_angle), invert_wheel_axis), iInterface, wheel_axis);
+					continue;
+				}
+			}
+		
 			// virtual wheel code
 			if (!use_right_stick)
 			{

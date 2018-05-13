@@ -43,6 +43,7 @@ Sample control setup for Assetto Corsa and Project Cars is available in the doc 
 The recommended way to use the controller with asw is: push the thumbstick to the edge with your thumb, then move it along the edge.
 Pressing ESC quits asw.
 In case something goes wrong and the window closes, try launching from the command line so you can see the program output. The output may explain what the problem is.
+Pressing the back button and Y button together will reset the wheel to center.
 You can adjust how asw works using command line arguments, explained below.
 
 ====================================
@@ -89,12 +90,42 @@ example:
 ADVANCED command line arguments:
 ================================
 -bindmodeincrement or -bmi
-adjust the speed of the movement generated in bind mode functionality
+Adjust the speed of movement generated in bindmode functionality.
 You probably won't need to touch this.
 defaults is 128
 Higher values mean faster movement
 Smaller values mean slower movement
 A value of 128 will make the control move from end position to end position in about 2 seconds
+
+-wheelresetbuttonsflag or -wrbf
+Assign a button or buttons that have to be pressed in order to reset the wheel to center.
+This argument accepts a hexadecimal value only.
+Default is: 0x8020 (back and Y buttons)
+Use one of the values from the following table:
+XINPUT_GAMEPAD_DPAD_UP	0x0001
+XINPUT_GAMEPAD_DPAD_DOWN	0x0002
+XINPUT_GAMEPAD_DPAD_LEFT	0x0004
+XINPUT_GAMEPAD_DPAD_RIGHT	0x0008
+XINPUT_GAMEPAD_START	0x0010
+XINPUT_GAMEPAD_BACK	0x0020
+XINPUT_GAMEPAD_LEFT_THUMB	0x0040
+XINPUT_GAMEPAD_RIGHT_THUMB	0x0080
+XINPUT_GAMEPAD_LEFT_SHOULDER	0x0100
+XINPUT_GAMEPAD_RIGHT_SHOULDER	0x0200
+XINPUT_GAMEPAD_A	0x1000
+XINPUT_GAMEPAD_B	0x2000
+XINPUT_GAMEPAD_X	0x4000
+XINPUT_GAMEPAD_Y	0x8000
+Or, if you want the reset to be triggered by pressing a combination of buttons, just add
+the values together (using hexadecimal addition) and pass the result to this option.
+example:
+-wrbf C000
+note: the above will make the reset happen when X and Y buttons are pressed at the same time
+this is because 0x4000 + 0x8000 = 0xC000
+note: the value can be passed in with the "0x" in front of the value or without it
+
+-disablewheelreset or -dwr
+The wheel will no longer reset to center if the assigned button combination is pressed.
 
 -tickdelay or -t
 Sets how long to wait (in milliseconds) between consecutive vjoy device updates.
