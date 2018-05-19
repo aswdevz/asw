@@ -1,3 +1,8 @@
+next version
+- wheel will now reset to center by pressing the "back" + "Y" button combination (configurable)
+- control assignment in project cars works better (bindmode is improved and has more options)
+- from now on, asw won't start if incorrect command line arguments are found
+
 v1.0.2
 - made readme more informative
 

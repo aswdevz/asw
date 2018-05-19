@@ -35,15 +35,18 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 				{
 					// valid vjoy interface numbers are 1-16
 					*(aliaslist.iInterface) = int_scan_val;
+					i++;
 				}
 				else
 				{
 					printf("-interface value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-interface value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -58,15 +61,18 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 					// valid xinput controller number is 0-3
 					// 0 corresponds to controller number 1 etc.
 					*(aliaslist.controller_number) = int_scan_val-1;
+					i++;
 				}
 				else
 				{
 					printf("-controller value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-controller value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -82,20 +88,24 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 					if ((int_scan_val >= 0) && (int_scan_val <= 100))
 					{
 						*(aliaslist.thumbstick_deadzone) = int_scan_val;
+						i++;
 					}
 					else
 					{
 						printf("-deadzone value out of range, min=0, max=100\n");
+						return false;
 					}
 				}
 				else
 				{
 					printf("-deadzone value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-deadzone value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -109,15 +119,18 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 				{
 					// I should probably clip this to 0-32767 just to be sure
 					*(aliaslist.virtual_wheel_max_angle) = int_scan_val;
+					i++;
 				}
 				else
 				{
 					printf("-rotation value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-rotation value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -133,20 +146,24 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 					if ((int_scan_val >= 0) && (int_scan_val <= 3))
 					{
 						*(aliaslist.bind_mode) = int_scan_val;
+						i++;
 					}
 					else
 					{
 						printf("-bindmode value out of range, min=0, max=3\n");
+						return false;
 					}
 				}
 				else
 				{
 					printf("-bindmode value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-bindmode value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -162,20 +179,24 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 					if ((int_scan_val >= 1) && (int_scan_val <= 8192))
 					{
 						*(aliaslist.bind_mode_increment) = int_scan_val;
+						i++;
 					}
 					else
 					{
 						printf("-bindmodeincrement value out of range, min=1, max=8192\n");
+						return false;
 					}
 				}
 				else
 				{
 					printf("-bindmodeincrement value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-bindmodeincrement value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -191,20 +212,24 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 					if ((int_scan_val == 1) || (int_scan_val == -1))
 					{
 						*(aliaslist.bind_mode_movement_direction) = int_scan_val;
+						i++;
 					}
 					else
 					{
 						printf("-bindmodemovementdirection value out of range, allowed values: 1 and -1\n");
+						return false;
 					}
 				}
 				else
 				{
 					printf("-bindmodemovementdirection value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-bindmodemovementdirection value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -224,15 +249,18 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 				if (sscanf_s(argv[i + 1], "%d", &int_scan_val) == 1)
 				{
 					*(aliaslist.bind_mode_reset_wait) = int_scan_val;
+					i++;
 				}
 				else
 				{
 					printf("-bindmoderesetwait value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-bindmoderesetwait value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -245,15 +273,18 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 				if (sscanf_s(argv[i + 1], "%x", &int_scan_val) == 1)
 				{
 					*(aliaslist.wheel_reset_buttons_flag) = int_scan_val;
+					i++;
 				}
 				else
 				{
 					printf("-wheelresetbuttonsflag value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-wheelresetbuttonsflag value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -284,20 +315,24 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 					if ((int_scan_val >= 1) && (int_scan_val <= 1000))
 					{
 						*(aliaslist.tick_delay) = int_scan_val;
+						i++;
 					}
 					else
 					{
 						printf("-tickdelay value out of range, min=1, max=1000\n");
+						return false;
 					}
 				}
 				else
 				{
 					printf("-tickdelay value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-tickdelay value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -317,15 +352,18 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 				if (sscanf_s(argv[i + 1], "%x", &int_scan_val) == 1)
 				{
 					*(aliaslist.wheel_axis) = int_scan_val;
+					i++;
 				}
 				else
 				{
 					printf("-wheelaxis value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-wheelaxis value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -338,15 +376,18 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 				if (sscanf_s(argv[i + 1], "%x", &int_scan_val) == 1)
 				{
 					*(aliaslist.left_trigger_axis) = int_scan_val;
+					i++;
 				}
 				else
 				{
 					printf("-lefttriggeraxis value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-lefttriggeraxis value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -359,15 +400,18 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 				if (sscanf_s(argv[i + 1], "%x", &int_scan_val) == 1)
 				{
 					*(aliaslist.right_trigger_axis) = int_scan_val;
+					i++;
 				}
 				else
 				{
 					printf("-righttriggeraxis value not present or in incorrect format\n");
+					return false;
 				}
 			}
 			else
 			{
 				printf("-righttriggeraxis value not present\n");
+				return false;
 			}
 			continue;
 		}
@@ -431,6 +475,9 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 		}
 
 		// add extra comparisons here
+
+		printf("unrecognized argument: %s\n", argv[i]);
+		return false;
 	}
 
 	return true;

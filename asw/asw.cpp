@@ -101,7 +101,11 @@ int main(int argc, char* argv[])
 	/******************************************************************************/
 	
 	printf("\n");
-	parse_cmdline(aliaslist, argc, argv);
+	if (!parse_cmdline(aliaslist, argc, argv))
+	{
+		printf("incorrect command line arguments, asw is not started\n");
+		return 0;
+	}
 	if (help_detected)
 		return 0;
 	printf("=== asw settings ===\n");

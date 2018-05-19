@@ -5,7 +5,7 @@
 
 #pragma once
 
-#define VERSION_STRING "1.0.3rc3"
+#define VERSION_STRING "1.0.3rc4"
 //#define EXTRA_LINES
 
 #include <stdlib.h> // used for printf and maybe other things
