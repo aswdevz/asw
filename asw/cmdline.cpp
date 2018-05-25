@@ -26,7 +26,9 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 		printf(">>cmdline parse loop<<\n");
 		#endif
 
-		if ((strcmp(argv[i], "-interface") == 0) || (strcmp(argv[i], "-i") == 0))
+		//std::cout << "addr " << &argv[i] << std::endl;
+
+		if ((argcmp(argv[i], "interface") == 0) || (argcmp(argv[i], "i") == 0))
 		{
 			//printf("-interface detected\n");
 			if ((i + 1) < argc)
@@ -51,7 +53,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-controller") == 0) || (strcmp(argv[i], "-c") == 0))
+		if ((argcmp(argv[i], "controller") == 0) || (argcmp(argv[i], "c") == 0))
 		{
 			//printf("-controller detected\n");
 			if ((i + 1) < argc)
@@ -77,7 +79,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-deadzone") == 0) || (strcmp(argv[i], "-d") == 0))
+		if ((argcmp(argv[i], "deadzone") == 0) || (argcmp(argv[i], "d") == 0))
 		{
 			//printf("-deadzone detected\n");
 			if ((i + 1) < argc)
@@ -110,7 +112,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ( (strcmp(argv[i], "-rotation") == 0) || (strcmp(argv[i], "-r") == 0) )
+		if ( (argcmp(argv[i], "rotation") == 0) || (argcmp(argv[i], "r") == 0) )
 		{
 			//printf("-rotation detected\n");
 			if ( (i + 1) < argc)
@@ -135,7 +137,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-bindmode") == 0) || (strcmp(argv[i], "-b") == 0))
+		if ((argcmp(argv[i], "bindmode") == 0) || (argcmp(argv[i], "b") == 0))
 		{
 			//printf("-bindmode detected\n");
 			if ((i + 1) < argc)
@@ -168,7 +170,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-bindmodeincrement") == 0) || (strcmp(argv[i], "-bmi") == 0))
+		if ((argcmp(argv[i], "bindmodeincrement") == 0) || (argcmp(argv[i], "bmi") == 0))
 		{
 			//printf("-bindmodeincrement detected\n");
 			if ((i + 1) < argc)
@@ -201,7 +203,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-bindmodemovementdirection") == 0) || (strcmp(argv[i], "-bmmd") == 0))
+		if ((argcmp(argv[i], "bindmodemovementdirection") == 0) || (argcmp(argv[i], "bmmd") == 0))
 		{
 			//printf("-bindmodemovementdirection detected\n");
 			if ((i + 1) < argc)
@@ -234,14 +236,14 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 		
-		if ((strcmp(argv[i], "-bindmodenonreversible") == 0) || (strcmp(argv[i], "-bmnr") == 0))
+		if ((argcmp(argv[i], "bindmodenonreversible") == 0) || (argcmp(argv[i], "bmnr") == 0))
 		{
 			//printf("-bindmodenonreversible detected\n");
 			*(aliaslist.bind_mode_non_reversible) = 1;
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-bindmoderesetwait") == 0) || (strcmp(argv[i], "-bmrw") == 0))
+		if ((argcmp(argv[i], "bindmoderesetwait") == 0) || (argcmp(argv[i], "bmrw") == 0))
 		{
 			//printf("-bindmoderesetwait detected\n");
 			if ((i + 1) < argc)
@@ -265,7 +267,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-wheelresetbuttonsflag") == 0) || (strcmp(argv[i], "-wrbf") == 0))
+		if ((argcmp(argv[i], "wheelresetbuttonsflag") == 0) || (argcmp(argv[i], "wrbf") == 0))
 		{
 			//printf("-wheelresetbuttonsflag detected\n");
 			if ((i + 1) < argc)
@@ -289,7 +291,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-disablewheelreset") == 0) || (strcmp(argv[i], "-dwr") == 0))
+		if ((argcmp(argv[i], "disablewheelreset") == 0) || (argcmp(argv[i], "dwr") == 0))
 		{
 			//printf("-disablewheelreset detected\n");
 			*(aliaslist.disable_wheel_reset) = 1;
@@ -297,14 +299,14 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 		}
 
 
-		if ((strcmp(argv[i], "-anykey") == 0) || (strcmp(argv[i], "-a") == 0))
+		if ((argcmp(argv[i], "anykey") == 0) || (argcmp(argv[i], "a") == 0))
 		{
 			//printf("-anykey detected\n");
 			*(aliaslist.any_key_to_quit) = 1;
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-tickdelay") == 0) || (strcmp(argv[i], "-t") == 0))
+		if ((argcmp(argv[i], "tickdelay") == 0) || (argcmp(argv[i], "t") == 0))
 		{
 			//printf("-tickdelay detected\n");
 			if ((i + 1) < argc)
@@ -337,14 +339,14 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-rightstick") == 0) || (strcmp(argv[i], "-rs") == 0))
+		if ((argcmp(argv[i], "rightstick") == 0) || (argcmp(argv[i], "rs") == 0))
 		{
 			//printf("-rightstick detected\n");
 			*(aliaslist.use_right_stick) = 1;
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-wheelaxis") == 0) || (strcmp(argv[i], "-wa") == 0))
+		if ((argcmp(argv[i], "wheelaxis") == 0) || (argcmp(argv[i], "wa") == 0))
 		{
 			//printf("-wheelaxis detected\n");
 			if ((i + 1) < argc)
@@ -368,7 +370,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-lefttriggeraxis") == 0) || (strcmp(argv[i], "-lta") == 0))
+		if ((argcmp(argv[i], "lefttriggeraxis") == 0) || (argcmp(argv[i], "lta") == 0))
 		{
 			//printf("-lefttriggeraxis detected\n");
 			if ((i + 1) < argc)
@@ -392,7 +394,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-righttriggeraxis") == 0) || (strcmp(argv[i], "-rta") == 0))
+		if ((argcmp(argv[i], "righttriggeraxis") == 0) || (argcmp(argv[i], "rta") == 0))
 		{
 			//printf("-righttriggeraxis detected\n");
 			if ((i + 1) < argc)
@@ -416,28 +418,28 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-invertwheel") == 0) || (strcmp(argv[i], "-iw") == 0))
+		if ((argcmp(argv[i], "invertwheel") == 0) || (argcmp(argv[i], "iw") == 0))
 		{
 			//printf("-invertwheel detected\n");
 			*(aliaslist.invert_wheel_axis) = 1;
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-invertletfttrigger") == 0) || (strcmp(argv[i], "-ilt") == 0))
+		if ((argcmp(argv[i], "invertletfttrigger") == 0) || (argcmp(argv[i], "ilt") == 0))
 		{
 			//printf("-invertletfttrigger detected\n");
 			*(aliaslist.invert_left_trigger) = 1;
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-invertrighttrigger") == 0) || (strcmp(argv[i], "-irt") == 0))
+		if ((argcmp(argv[i], "invertrighttrigger") == 0) || (argcmp(argv[i], "irt") == 0))
 		{
 			//printf("-invertrighttrigger detected\n");
 			*(aliaslist.invert_right_trigger) = 1;
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-help") == 0) || (strcmp(argv[i], "-h") == 0))
+		if ((argcmp(argv[i], "help") == 0) || (argcmp(argv[i], "h") == 0))
 		{
 			//printf("-help detected\n");
 			*(aliaslist.help_detected) = true;
@@ -466,7 +468,7 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((strcmp(argv[i], "-version") == 0) || (strcmp(argv[i], "-v") == 0))
+		if ((argcmp(argv[i], "version") == 0) || (argcmp(argv[i], "v") == 0))
 		{
 			//printf("-version detected\n");
 			*(aliaslist.help_detected) = true;
@@ -481,4 +483,38 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 	}
 
 	return true;
+}
+
+int argcmp(char* arg, char* cmp)
+{
+	int returnval = 1;
+	
+	int cmp1size = strlen(cmp) + 1 + 1;
+	char* cmp1 = new char[cmp1size]();
+	strcpy_s(cmp1, cmp1size, "-");
+	strcat_s(cmp1, cmp1size, cmp);
+	returnval = strcmp(arg, cmp1);
+	delete[] cmp1;
+	if (returnval == 0)
+		return returnval;
+
+	cmp1size = strlen(cmp) + 1 + 1;
+	cmp1 = new char[cmp1size]();
+	strcpy_s(cmp1, cmp1size, "/");
+	strcat_s(cmp1, cmp1size, cmp);
+	returnval = strcmp(arg, cmp1);
+	delete[] cmp1;
+	if (returnval == 0)
+		return returnval;
+
+	cmp1size = strlen(cmp) + 1 + 2;
+	cmp1 = new char[cmp1size]();
+	strcpy_s(cmp1, cmp1size, "--");
+	strcat_s(cmp1, cmp1size, cmp);
+	returnval = strcmp(arg, cmp1);
+	delete[] cmp1;
+	if (returnval == 0)
+		return returnval;
+
+	return returnval;
 }
