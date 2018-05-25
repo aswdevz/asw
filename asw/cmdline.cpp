@@ -425,9 +425,9 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((argcmp(argv[i], "invertletfttrigger") == 0) || (argcmp(argv[i], "ilt") == 0))
+		if ((argcmp(argv[i], "invertlefttrigger") == 0) || (argcmp(argv[i], "ilt") == 0))
 		{
-			//printf("-invertletfttrigger detected\n");
+			//printf("-invertlefttrigger detected\n");
 			*(aliaslist.invert_left_trigger) = 1;
 			continue;
 		}
