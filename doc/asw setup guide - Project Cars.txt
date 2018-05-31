@@ -1,0 +1,40 @@
+How to make asw work with Project Cars
+
+Assigning controls in Project Cars is not as easy as in Assetto Corasa. The custom wheel profile does not recognize input from vJoy in Project Cars. So, you have to select a profile for a wheel, preferably one that uses the X axis for steering like the "Logitech G920 Separate Pedals" profile. Other profiles may work as well.
+
+Start with a completely clean control configuration.
+Use the "reset" option if you have to.
+
+Method #1
+1) Launch Project Cars, do not start asw yet.
+2) Set the profile to "Logitech G920 Separate Pedals".
+   Note: Other wheel profiles can probably also be used, but this one is confirmed to be working.
+3) Go to the "edit assignments" page and assign throttle to the controller's right trigger and brake to the controller's left trigger.
+   Note: These two controls will be assigned directly to the controller and not to the vJoy device that asw uses.
+   Note: The steering does not have to be assigned since it should already be assigned correctly as part of the profile.
+4) Assign other controls to your preference using normal means.
+5) Save your controls.
+6) Start asw.
+7) You can now play the game.
+
+Method #2
+Controls in Project Cars can also be assigned to the vJoy axis using bind mode. Bindmode is a special asw mode that is only used for assigning controls. Bindmode makes the vJoy axis move on it's own. When you're done assigning controls using bindmode, exit asw and launch it in normal mode. A profile of a wheel (like the "Logitech G920 Separate Pedals" for example) still has to be selected before you do this.
+
+To use bindmode, follow these steps:
+1) Launch asw from the command line using a command specified below.
+2) Switch to or start Project Cars and assign the control.
+3) Switch back to asw and exit it by pressing the Escape key.
+Repeat these steps to assign/bind all the controls.
+Sometimes, the control gets assigned in the opposite direction. If this happens, try assigning it again. It should eventually get assigned correctly.
+
+Use the following command to assign "Steer Left":
+asw -b 1 -bmnr -bmmd -1 
+
+Use the following command to assign "Steer right":
+asw -b 1 -bmnr
+
+Use the following command to assign the left trigger to the brake:
+asw -b 2 -bmnr
+
+Use the following command to assign the right trigger to the throttle:
+asw -b 3 -bmnr
