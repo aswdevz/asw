@@ -77,13 +77,13 @@ int main(int argc, char* argv[])
 		&thumbstick_deadzone,
 		&virtual_wheel_max_angle,
 		&bind_mode,
+		&any_key_to_quit,
 		&bind_mode_increment,
 		&bind_mode_movement_direction,
 		&bind_mode_non_reversible,
 		&bind_mode_reset_wait,
 		&wheel_reset_buttons_flag,
 		&disable_wheel_reset,
-		&any_key_to_quit,
 		&tick_delay,
 		&use_right_stick,
 		&help_detected,
@@ -104,6 +104,7 @@ int main(int argc, char* argv[])
 	if (!parse_cmdline(aliaslist, argc, argv))
 	{
 		printf("incorrect command line arguments, asw is not started\n");
+		printf("use the following command to display help: asw -h\n");
 		return 0;
 	}
 	if (help_detected)

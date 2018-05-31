@@ -5,7 +5,7 @@
 
 #pragma once
 
-#define VERSION_STRING "1.0.3rc4"
+#define VERSION_STRING "1.0.3rc5"
 //#define EXTRA_LINES
 
 #include <stdlib.h> // used for printf and maybe other things
@@ -34,13 +34,13 @@ struct s_aliaslist
 	int* thumbstick_deadzone;
 	int* virtual_wheel_max_angle;
 	int* bind_mode;
+	bool* any_key_to_quit;
 	int* bind_mode_increment;
 	int* bind_mode_movement_direction;
 	bool* bind_mode_non_reversible;
 	int* bind_mode_reset_wait;
 	int* wheel_reset_buttons_flag;
 	bool* disable_wheel_reset;
-	bool* any_key_to_quit;
 	int* tick_delay;
 	bool* use_right_stick;
 	bool* help_detected;

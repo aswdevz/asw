@@ -170,6 +170,13 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
+		if ((argcmp(argv[i], "anykey") == 0) || (argcmp(argv[i], "a") == 0))
+		{
+			//printf("-anykey detected\n");
+			*(aliaslist.any_key_to_quit) = 1;
+			continue;
+		}
+
 		if ((argcmp(argv[i], "bindmodeincrement") == 0) || (argcmp(argv[i], "bmi") == 0))
 		{
 			//printf("-bindmodeincrement detected\n");
@@ -295,14 +302,6 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 		{
 			//printf("-disablewheelreset detected\n");
 			*(aliaslist.disable_wheel_reset) = 1;
-			continue;
-		}
-
-
-		if ((argcmp(argv[i], "anykey") == 0) || (argcmp(argv[i], "a") == 0))
-		{
-			//printf("-anykey detected\n");
-			*(aliaslist.any_key_to_quit) = 1;
 			continue;
 		}
 
@@ -439,22 +438,30 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			continue;
 		}
 
-		if ((argcmp(argv[i], "help") == 0) || (argcmp(argv[i], "h") == 0))
+		if ((argcmp(argv[i], "help") == 0) || (argcmp(argv[i], "h") == 0) || (argcmp(argv[i], "?") == 0))
 		{
 			//printf("-help detected\n");
+			if (*(aliaslist.help_detected))
+				printf("\n");
 			*(aliaslist.help_detected) = true;
 			printf("Usage: asw [-i vjoyid] [-c controller] [-d size] [-r range] [-b]\n");
-			printf("           [-bmi increment] [-a] [-t delay] [-rs] [-wa axis]\n");
-			printf("           [-lta axis] [-rta axis] [-iw] [-ilt] [-irt] [-h]\n");
+			printf("           [-a] [-bmi increment] [-bmmd code] [-bmnr] [-bmrw delay]\n");
+			printf("           [-wrbf buttons] [-dwr] [-t delay] [-rs] [-wa axis]\n");
+			printf("           [-lta axis] [-rta axis] [-iw] [-ilt] [-irt] [-h] [-v]\n");
 			printf("\n");
 			printf("Options:\n");
 			printf("  -i vjoyid       vJoy interface to use [1-16]\n");
 			printf("  -c controller   controller to use [1-4]\n");
 			printf("  -d size         deadzone for the thumbstick input in percent\n");
 			printf("  -r range        number of degrees the virtual wheel can be rotated to\n");
-			printf("  -b              run program in bind mode\n");
-			printf("  -bmi increment  adjust the speed of bind mode\n");
+			printf("  -b              run program in bindmode\n");
 			printf("  -a              make any key press quit the program\n");
+			printf("  -bmi increment  adjust the speed of bindmode\n");
+			printf("  -bmmd value     changes the movement direction in bindmode\n");
+			printf("  -bmnr           bindmode movement will be one way only\n");
+			printf("  -bmrw delay     wait time for when bindmode reaches end of travel\n");
+			printf("  -wrbf buttons   sets the wheel reset to center button or combination\n");
+			printf("  -dwr            disables wheel reset to center button or combination\n");
 			printf("  -t delay        delay between consecutive vJoy device updates\n");
 			printf("  -rs             use right thumbstick as input for the virtual wheel\n");
 			printf("  -wa axis        vJoy device axis used as output for the virtual wheel\n");
@@ -464,13 +471,15 @@ bool parse_cmdline(s_aliaslist aliaslist, int argc, char* argv[])
 			printf("  -ilt            invert left trigger output\n");
 			printf("  -irt            invert right trigger output\n");
 			printf("  -h              display this help text\n");
-			printf("  -v              display program version, current version: %s\n", VERSION_STRING);
+			printf("  -v              display program version, current ver: %s\n", VERSION_STRING);
 			continue;
 		}
 
 		if ((argcmp(argv[i], "version") == 0) || (argcmp(argv[i], "v") == 0))
 		{
 			//printf("-version detected\n");
+			if (*(aliaslist.help_detected))
+				printf("\n");
 			*(aliaslist.help_detected) = true;
 			printf("asw version %s\n", VERSION_STRING);
 			continue;
