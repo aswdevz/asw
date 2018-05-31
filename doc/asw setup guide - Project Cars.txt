@@ -18,7 +18,7 @@ Method #1
 7) You can now play the game.
 
 Method #2
-Controls in Project Cars can also be assigned to the vJoy axis using bind mode. Bindmode is a special asw mode that is only used for assigning controls. Bindmode makes the vJoy axis move on it's own. When you're done assigning controls using bindmode, exit asw and launch it in normal mode. A profile of a wheel (like the "Logitech G920 Separate Pedals" for example) still has to be selected before you do this.
+Controls in Project Cars can also be assigned to the vJoy axis using bindmode. Bindmode is a special asw mode that is only used for assigning controls. Bindmode makes the vJoy axis move on it's own. When you're done assigning controls using bindmode, exit asw and launch it in normal mode. A profile of a wheel (like the "Logitech G920 Separate Pedals" for example) still has to be selected before you do this.
 
 To use bindmode, follow these steps:
 1) Launch asw from the command line using a command specified below.
