@@ -1,8 +1,8 @@
-next version
+v1.0.3
 - wheel will now reset to center by pressing the "back" + "Y" button combination (configurable)
 - control assignment in project cars works better (bindmode is improved and has more options)
-- from now on, asw won't start if incorrect command line arguments are found
-- fixed typo that caused the invertlefttrigger option to not be recognized
+- from now on, asw won't start if incorrect command line arguments are used
+- fixed bug that caused the invertlefttrigger option to not be recognized
 
 v1.0.2
 - made readme more informative
